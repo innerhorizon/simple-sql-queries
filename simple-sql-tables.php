@@ -116,12 +116,12 @@ function sst_main($atts)
 		return 'A query parameter is required.';
 	}
 
-	if (!isset($fetch_data_atts['output'])) {
+	if (isset($fetch_data_atts['output'])) {
 		if ($fetch_data_atts['output'] == 'dt') {
-			$output_format = 'datatables';
-		} else {
-			$output_format = 'plain';
+			$output_format = 'dt';
 		}
+	} else {
+		$output_format = 'plain';
 	}
 
 	$query = $fetch_data_atts['query'];
@@ -129,8 +129,8 @@ function sst_main($atts)
 	$results = $wpdb->get_results($query, OBJECT_K);
 	$do_headers = true;
 
-	if ('datatables' == $output_format) {
-		$return_data = '<table id="default-datatable">';
+	if ('dt' == $output_format) {
+		$return_data = '<table id="dt-default">';
 	} else {
 		$return_data = '<table id="plain" class="w3-table">';
 	}
